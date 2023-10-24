@@ -1,6 +1,6 @@
 // JobDetails.js
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./JobDetails.css";
 import JobApplicationForm from "./JobApplicationForm";
@@ -16,6 +16,8 @@ const JobDetails = () => {
   const [job, setJob] = useState({});
 
   const [showApplicationForm, setShowApplicationForm] = useState(false);
+
+  const jobApplicationFormRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,6 +36,12 @@ const JobDetails = () => {
       });
   }, [jobId]);
 
+  const scrollToJobApplicationForm = () => {
+    setTimeout(() => {
+      jobApplicationFormRef.current.scrollIntoView({ behavior: "smooth" });
+    }, 0);
+  };
+
   if (!job) {
     return <div>Job not found.</div>;
   }
@@ -47,18 +55,27 @@ const JobDetails = () => {
           <div className="job-details">
             <h2>{job.title}</h2>
             <p>Company: {job.company}</p>
+            <p>Experience: {job.experience}</p>
             <p>Location: {job.location}</p>
             <p>Salary: {job.salary}</p>
-            <p>Deadline: {job.deadline}</p>
+            <p>Deadline: {job.deadline.split("T")[0]}</p>
             <p>Skills: {job.skills.join(", ")}</p>
             <p>Description: {job.jobDescription}</p>
+            <p>Contact Email: {job.contactEmail}</p>
             <button
-              onClick={() => setShowApplicationForm(true)}
+              onClick={() => {
+                setShowApplicationForm(true);
+                scrollToJobApplicationForm();
+              }}
               className="apply-button"
             >
               Apply
             </button>
-            {showApplicationForm && <JobApplicationForm jobId={job.jobId} />}
+            {showApplicationForm && (
+              <div ref={jobApplicationFormRef}>
+                <JobApplicationForm jobId={job.jobId} />
+              </div>
+            )}
           </div>
         )
       )}

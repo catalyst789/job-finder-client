@@ -38,6 +38,7 @@ const JobListings = () => {
               <h2>{job.title}</h2>
               <p>Company: {job.company}</p>
               <p>Location: {job.location}</p>
+              <p>Experience: {job.experience}</p>
               <p>Salary: {job.salary}</p>
               <Link to={`/job/${job.jobId}`}>Details</Link>
             </div>
