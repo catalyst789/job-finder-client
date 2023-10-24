@@ -18,11 +18,11 @@ function App() {
           <Route
             exact
             path="/"
-            element={<JobListings jobs={mockJobsData} />}
+            element={<JobListings />}
           />
           <Route
             path="/job/:jobId"
-            element={<JobDetails jobs={mockJobsData} />}
+            element={<JobDetails />}
           />
         </Routes>
         {/* </Switch> */}

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "./JobApplicationForm.css";
+import { JobInstance } from "../axios/JobInstance";
 
 const JobApplicationForm = ({ jobId }) => {
   const [formData, setFormData] = useState({
@@ -20,14 +21,38 @@ const JobApplicationForm = ({ jobId }) => {
     e.preventDefault();
     // You can handle the form submission here, e.g., send data to a server.
     console.log("Form data submitted:", formData);
-    // Clear the form fields
-    setFormData({
-      name: "",
-      email: "",
-      phoneNumber: "",
-      resumeLink: "",
-    });
-    alert("Successfully Applied for this Job.");
+
+    JobInstance.post("/apply", {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phoneNumber,
+      resumeLink: formData.resumeLink,
+      jobId: jobId,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Successfully Applied for this Job.");
+        } else {
+          alert("Failed Applied for this Job.");
+        }
+        // Clear the form fields
+        setFormData({
+          name: "",
+          email: "",
+          phoneNumber: "",
+          resumeLink: "",
+        });
+      })
+      .catch((error) => {
+        alert("Failed Applied for this Job.");
+        // Clear the form fields
+        setFormData({
+          name: "",
+          email: "",
+          phoneNumber: "",
+          resumeLink: "",
+        });
+      });
   };
 
   return (

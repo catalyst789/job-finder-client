@@ -1,13 +1,30 @@
 // JobListings.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./JobListings.css";
+import axios from "axios";
+import { JobInstance } from "../axios/JobInstance";
 
-const JobListings = ({ jobs }) => {
+const JobListings = () => {
+  const [alljobs, setAlJobs] = useState([]);
+
+  useEffect(() => {
+    JobInstance.get("http://localhost:4000/jobs/getAll")
+      .then((res) => {
+        if (res.status === 200) {
+          setAlJobs(res.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Some Error Occured at Finding Jobs...");
+      });
+  }, []);
+
   return (
     <div className="job-listings">
-      {jobs.map((job) => (
+      {alljobs.map((job) => (
         <div key={job.jobId} className="job-card">
           <h2>{job.title}</h2>
           <p>Company: {job.company}</p>
