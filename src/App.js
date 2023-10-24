@@ -4,7 +4,7 @@ import React from "react";
 import "./App.css";
 import JobListings from "./components/JobListings";
 // import { mockJobsData } from "./mockData";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import JobDetails from "./components/JobDetails";
 // import { Routes } from "react-router-dom/dist/umd/react-router-dom.development";
 
@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Job Listings</h1>
+        <Link to="/"><h1>Job Listings</h1></Link>
         {/* <Switch> */}
         <Routes>
           <Route
