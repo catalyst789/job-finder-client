@@ -5,6 +5,8 @@ import "./JobApplicationForm.css";
 import { JobInstance } from "../axios/JobInstance";
 
 const JobApplicationForm = ({ jobId }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +21,7 @@ const JobApplicationForm = ({ jobId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     // You can handle the form submission here, e.g., send data to a server.
     console.log("Form data submitted:", formData);
 
@@ -30,6 +33,7 @@ const JobApplicationForm = ({ jobId }) => {
       jobId: jobId,
     })
       .then((res) => {
+        setIsLoading(false);
         if (res.status === 200) {
           alert("Successfully Applied for this Job.");
         } else {
@@ -44,6 +48,7 @@ const JobApplicationForm = ({ jobId }) => {
         });
       })
       .catch((error) => {
+        setIsLoading(false);
         alert("Failed Applied for this Job.");
         // Clear the form fields
         setFormData({
@@ -108,7 +113,7 @@ const JobApplicationForm = ({ jobId }) => {
         </div>
 
         <button type="submit" className="apply-button">
-          Submit Application
+          {isLoading ? "Sending Application..." : "Submit Application"}
         </button>
       </form>
     </div>
