@@ -9,7 +9,7 @@ const JobListings = () => {
   const [alljobs, setAlJobs] = useState([]);
 
   useEffect(() => {
-    JobInstance.get("http://localhost:4000/jobs/getAll")
+    JobInstance.get("/getAll")
       .then((res) => {
         if (res.status === 200) {
           setAlJobs(res.data);
