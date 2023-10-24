@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./JobListings.css";
-import axios from "axios";
 import { JobInstance } from "../axios/JobInstance";
 
 const JobListings = () => {

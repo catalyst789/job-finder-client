@@ -26,7 +26,7 @@ const JobDetails = () => {
         console.log(error);
         alert("Some Error Occured at Finding Jobs...");
       });
-  }, []);
+  }, [jobId]);
 
   if (!job) {
     return <div>Job not found.</div>;
